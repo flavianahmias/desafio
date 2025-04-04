@@ -1,0 +1,4 @@
+.buttonsBox {
+    display: flex;
+    justify-content: end;
+}

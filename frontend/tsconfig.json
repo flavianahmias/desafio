@@ -3,5 +3,9 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    "types": ["@testing-library/jest-dom", "jest", "@types/node"]
+  },
+  "include": ["./jest-setup.ts"]
 }
