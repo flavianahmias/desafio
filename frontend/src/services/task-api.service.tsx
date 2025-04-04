@@ -35,8 +35,8 @@ export const createTask = async (body: {
   description: string;
 }) => {
   try {
-    const response = await api.post("/task", {
-      ...body,
+    console.log(getHeaders());
+    const response = await api.post("/task", body, {
       headers: getHeaders(),
     });
     return response.data;
@@ -48,8 +48,7 @@ export const createTask = async (body: {
 
 export const updateTask = async (task: Task) => {
   try {
-    const response = await api.put(`/task/${task.id}`, {
-      ...task,
+    const response = await api.put(`/task/${task.id}`, task, {
       headers: getHeaders(),
     });
     return response.data;
@@ -73,9 +72,13 @@ export const deleteTask = async (taskId: number) => {
 
 export const completeTask = async (taskId: number) => {
   try {
-    const response = await api.put(`/task/${taskId}/done`, {
-      headers: getHeaders(),
-    });
+    const response = await api.put(
+      `/task/${taskId}/done`,
+      {},
+      {
+        headers: getHeaders(),
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Erro ao atualizar tarefa:", error);
