@@ -8,6 +8,7 @@ import {
   ITaskRepo,
   ListAllWhereClause,
 } from '../interfaces/task-repo.interface';
+import { equal } from 'assert';
 
 @Injectable()
 export class TaskRepoService implements ITaskRepo {
@@ -53,8 +54,13 @@ export class TaskRepoService implements ITaskRepo {
       status: { status: options.sort },
     };
 
-    if (!!options.status)
+    if (!!options.status) {
       whereClause.AND.push({ status: { equals: options.status } });
+    }
+
+    if (!!options.userId) {
+      whereClause.AND.push({ userId: options.userId });
+    }
 
     const skip = options.pageSize * (options.page - 1);
     const take = options.pageSize;
@@ -77,6 +83,9 @@ export class TaskRepoService implements ITaskRepo {
         title: data.title,
         description: data.description,
         status: data.status,
+      },
+      include: {
+        user: true,
       },
     });
 

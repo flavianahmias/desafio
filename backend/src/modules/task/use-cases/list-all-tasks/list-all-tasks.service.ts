@@ -19,6 +19,7 @@ export class ListAllTasksService implements UseCase<Input, Result> {
       page: input.page,
       pageSize: input.pageSize,
       status: input.status,
+      userId: input.reqId,
       orderBy: 'id',
       sort: 'asc',
     });

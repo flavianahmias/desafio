@@ -23,4 +23,5 @@ export class GetTaskDTO {
 
   orderBy?: OrderBy;
   sort?: Sort;
+  reqId?: number;
 }

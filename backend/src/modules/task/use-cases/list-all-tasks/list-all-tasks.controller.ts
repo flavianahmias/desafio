@@ -1,4 +1,4 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { ListAllTasksService } from './list-all-tasks.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { GetTaskDTO } from '../../dtos/get-tasks.dto';
@@ -13,12 +13,12 @@ export class ListAllTasksController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Get()
-  async handle(@Query() query: GetTaskDTO) {
+  async handle(@Query() query: GetTaskDTO, @Req() requester) {
     const result = await this.listAllTasksService.execute({
       ...query,
+      reqId: requester.user.id,
     });
 
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     return { ...result, data: result.data.map(TaskMapper.toDTO) };
   }
 }
