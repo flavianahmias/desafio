@@ -26,10 +26,13 @@ describe('ListAllTasks', () => {
   });
 
   it('should return a task list', async () => {
-    const result = await listAllTasksController.handle({
-      page: 1,
-      pageSize: 5,
-    });
+    const result = await listAllTasksController.handle(
+      {
+        page: 1,
+        pageSize: 5,
+      },
+      1,
+    );
 
     expect(result).toBeDefined();
     expect(result.total).toEqual(5);

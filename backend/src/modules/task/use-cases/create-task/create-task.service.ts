@@ -17,7 +17,7 @@ export class CreateTaskService implements UseCase<Input, Result> {
   ) {}
 
   async execute(input: Input): Promise<Result> {
-    const user = await this.userRepo.findOne({ id: 1 });
+    const user = await this.userRepo.findOne({ id: input.reqId });
 
     const task = Task.create({
       description: input.description,

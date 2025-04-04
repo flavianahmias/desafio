@@ -4,7 +4,6 @@ import {
   FindAllTasksOptions,
   ITaskRepo,
 } from '../interfaces/task-repo.interface';
-import { User } from '../../../user/domain/user';
 import { tasksMocks } from './task-mocks';
 import { userMock } from '../../../user/repositories/mocks/user-mock';
 

@@ -7,6 +7,7 @@ export type OrderBy = 'id' | 'createdAt' | 'status';
 export type FindAllTasksOptions = {
   page: number;
   pageSize: number;
+  userId?: number;
   status?: number;
   orderBy: OrderBy;
   sort: Sort;
@@ -15,6 +16,7 @@ export type FindAllTasksOptions = {
 export type ListAllWhereClause = {
   AND: {
     status?: { equals: number };
+    userId?: number;
   }[];
 };
 
