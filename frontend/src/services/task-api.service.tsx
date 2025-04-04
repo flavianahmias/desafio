@@ -35,7 +35,6 @@ export const createTask = async (body: {
   description: string;
 }) => {
   try {
-    console.log(getHeaders());
     const response = await api.post("/task", body, {
       headers: getHeaders(),
     });
