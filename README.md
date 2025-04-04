@@ -15,7 +15,7 @@ O sistema de gerenciamento de tarefas permite aos usuários criar, visualizar, a
 
 Clone este repositório:
 
-git clone https://github.com/seu-usuario/todo-list.git
+```git clone https://github.com/flavianahmias/desafio.git``` 
 
 Rode o comando: 
 ```
