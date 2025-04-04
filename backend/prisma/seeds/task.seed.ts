@@ -20,7 +20,7 @@ export const TaskSeed = [
   {
     title: 'Levar o cachorro para passear',
     description: 'Ir ao parque',
-    status: 2,
+    status: 0,
     userId: Math.floor(Math.random() * (3 - 1 + 1)) + 1,
   },
   {

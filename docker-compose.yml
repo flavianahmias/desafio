@@ -1,0 +1,69 @@
+version: "3.9"
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.238.0/24
+
+services:
+  database:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: project_db
+    ports:
+      - "1433:1433"
+    restart: unless-stopped
+    environment:
+      SA_PASSWORD: "teste@13#2"
+      ACCEPT_EULA: "Y"
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.5
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "bash",
+          "-c",
+          "exec 6<>/dev/tcp/localhost/1433; if [ $? -eq 0 ]; then exit 0; else exit 1; fi",
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  backend:
+    build: ./backend
+    container_name: project_backend
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.6
+    environment:
+      DATABASE_URL: "sqlserver://project_db:1433;database=balta;user=sa;password=teste@13#2;trustServerCertificate=true"
+    ports:
+      - "8080:8080"
+    command: >
+      sh -c "sleep 10 && npx prisma migrate dev && npx prisma generate && npm run start"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  frontend:
+    build: ./frontend
+    container_name: project_frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.7
+    ports:
+      - "5173:5173"
