@@ -19,6 +19,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Task } from "../../pages/main";
 import DoneIcon from "@mui/icons-material/Done";
+import PendingIcon from "@mui/icons-material/Pending";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 import styles from "./table.module.css";
 
@@ -168,7 +170,13 @@ export const TableComponent = ({
                 {row.title}
               </TableCell>
               <TableCell style={{ width: 260 }}>{row.description}</TableCell>
-              <TableCell style={{ width: 20 }}>{row.status}</TableCell>
+              <TableCell style={{ width: 20 }}>
+                {row.status === 0 ? (
+                  <PendingIcon />
+                ) : (
+                  <CheckCircleOutlineIcon />
+                )}
+              </TableCell>
               <TableCell style={{ width: 160 }} align="right">
                 <IconButton
                   aria-label="delete"
